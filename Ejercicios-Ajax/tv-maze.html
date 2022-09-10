@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador Shows de TV</title>
+    <style>
+        html{
+            text-align: center;
+        }
+        .links a:nth-child(1){
+            background-color: blue;
+        }
+        .links a:nth-child(2){
+            background-color: crimson;
+        }
+        .loader{
+            display: block;
+            margin: auto;
+        }
+        .grid-fluid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscador Shows de TV</h1>
+    <input type="search" id="search" placeholder="Buscar shows de tv...">
+
+
+    <section id="shows" class="grid-fluid">
+
+    </section>
+
+    <template id="show-template">
+        <article class="show">
+            <h3></h3>
+            <div></div>
+            <img src="" alt="">
+            <a href=""></a>
+        </article>
+    </template>
+
+
+    <script>
+        const d = document;
+        const $shows = d.getElementById("shows");
+        const $template = d.getElementById("show-template").content;
+        $fragment = d.createDocumentFragment();
+
+        d.addEventListener("keypress",async(e)=>{
+            if(e.target.matches('#search')){
+                // console.log(e.key,e.keyCode);
+                if(e.key === 'Enter'){
+                    try{
+                        $shows.innerHTML = `<img class="loader" src="img/Reload-1s-200px (1).gif" alt="Cargando..." />`
+
+                        let query = e.target.value.toLowerCase();
+                        let api = `https://api.tvmaze.com/search/shows?q=${query}`
+
+                        let res = await fetch(api);
+                        let json = await res.json();
+
+                        console.log(json);
+                        if(!res.ok ) throw {status: res.status, statusText: res.statusText}
+
+                        if(json.length ===0){
+                            $shows.innerHTML=`<h2> No existen resultados para la busqueda: <mark>${json}</mark></h2>`
+                        }else{
+                            json.forEach((el,i) => {
+                                $template.querySelector('h3').textContent = el.show.name;
+                                $template.querySelector('div').innerHTML = el.show.summary ? el.show.summary : 'Sin descripcion';
+                                $template.querySelector('img').src=el.show.image.medium ? el.show.image.medium : " ";
+                                $template.querySelector('img').altk = el.show.name;
+                                $template.querySelector('img').style.maxWidth = '100%';
+                                $template.querySelector('a').href = el.show.url ? el.show.url : "#"; 
+                                $template.querySelector('a').target = el.show.url ? "_blank" : "_self"; 
+                                $template.querySelector('a').textContent = el.show.url ? "Ver mas" : ""; 
+
+                                let $clon = d.importNode($template,true)
+                                $fragment.append($clon)
+                            });
+                            $shows.innerHTML = '';
+                            $shows.append($fragment);
+                        }
+
+                    }catch(error){
+                        console.log(error);
+                        let message = error.statusText || 'Ocurrio un error';
+                        $shows.innerHTML = `Error ${error.status}: ${message}</p>`;
+
+                    }
+                }
+            }
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax - Blueeweb</title>
+    <link rel="stylesheet" href="ajax.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Spinner Loader -->
+        <div class="loader active">
+            <img src="Reload-1s-200px.gif" alt="" class="loader-img">
+        </div>
+
+        <h1 class="h1">Practica Rick and Morty</h1>
+
+        <ul id="ul"></ul>
+        
+        <section class="cards" id="cards-dinamic">
+        </section>
+    </div>
+    <template id="template-card">
+        <article class="card">
+            <figure class="card__figure">
+                <img src="https://rickandmortyapi.com/api/character/avatar/148.jpeg" alt="" class="card__img">
+                <figcaption class="card__figcaption">
+                    <h3 class="card__h3"></h3>
+                    <p class="card__p"></p>
+                </figcaption>
+            </figure>
+        </article>
+    </template>
+
+    <script src="ajax.js"></script>
+</body>
+</html>

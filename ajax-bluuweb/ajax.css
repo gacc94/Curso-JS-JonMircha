@@ -1,0 +1,75 @@
+*{
+    box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+body {
+  margin: 0;
+  height: 100%;
+  color: hsla(0,0%,0%,0.8);
+    font-family: -apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+
+}
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #f1f2f3;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 1s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loader-img {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.container{
+    border: 1px solid red;
+    width: 100%;
+    height: initial;
+    margin-left:auto;
+    margin-right: auto;
+}
+.h1{
+    text-align: center;
+}
+.cards{
+    background-color: #202329;
+    display: flex;
+    flex-flow: row wrap;
+}
+.card{
+    flex-basis: 25%;
+}
+.card__figure{
+    background-color: #3C3E44;
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+.card__img{
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.card__figcaption{
+    text-align: center;
+}
