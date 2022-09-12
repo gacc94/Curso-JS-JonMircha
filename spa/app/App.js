@@ -1,7 +1,18 @@
- import api from "./helpers/wp_api.js";
+import { Header } from "./components/Header.js";
+import { Main } from "./components/Main.js";
+import { Loader } from "./components/Loader.js";
+import { Router } from "./components/Router.js";
+import { InfiniteScroll } from "./helpers/infinite_scroll.js";
 
- export function App(){
-    document.getElementById('root').innerHTML = '<h1>Bienvenidos a mi primer aplicacion SPA con vanilla JS</h1>';
+export function App() {
+   const $root = document.getElementById("root");
 
-    console.log(api);
- }
+
+   $root.innerHTML = null;
+   $root.append(Header());
+   $root.append(Main());
+   $root.append(Loader());
+
+   Router();
+   InfiniteScroll()
+}
